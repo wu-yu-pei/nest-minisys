@@ -1,12 +1,14 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, UseFilters } from '@nestjs/common';
 import LoginService from './login.service';
 
 import handlePassword from 'src/commen/utils/handle-password';
 import Jwt from 'src/commen/utils/jwt';
 
 import { MyUnauthorizedException } from '../commen/exception/myunaothorized.exception';
+import { HttpExceptionFilter } from '../commen/exception/exception-filter';
 
 @Controller('login')
+@UseFilters(new HttpExceptionFilter())
 class LoginController {
   constructor(private readonly loginService: LoginService) {}
   @Post()
