@@ -7,9 +7,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { LoginModule } from './login/login.module';
 import { RegisterModule } from './register/register.module';
+import { PostModule } from './post/post.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), LoginModule, RegisterModule],
+  imports: [TypeOrmModule.forRoot(), LoginModule, RegisterModule, PostModule],
   controllers: [AppController],
   providers: [AppService],
 })
