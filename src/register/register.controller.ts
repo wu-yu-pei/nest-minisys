@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, ForbiddenException, HttpStatus } from '@nestjs/common';
 import { RegisterService } from './register.service';
 
 import handlePassword from 'src/commen/utils/handle-password';
@@ -17,9 +17,10 @@ export class RegisterController {
       password = handlePassword.encryption(password);
       return this.registerService.register(name, password);
     }
-
-    return {
-      messag: '用户名已存在',
-    };
+    // 用户名已经存在
+    throw new ForbiddenException({
+      status: HttpStatus.FORBIDDEN,
+      error: '用户名已存在',
+    });
   }
 }

@@ -3,6 +3,8 @@ import LoginService from './login.service';
 
 import handlePassword from 'src/commen/utils/handle-password';
 
+import { MyUnauthorizedException } from '../commen/exception/myunaothorized.exception';
+
 @Controller('login')
 class LoginController {
   constructor(private readonly loginService: LoginService) {}
@@ -10,7 +12,6 @@ class LoginController {
   async login(@Body() data) {
     // eslint-disable-next-line prefer-const
     let { name, password } = data;
-    console.log(name, password);
 
     password = handlePassword.encryption(password);
 
@@ -22,9 +23,8 @@ class LoginController {
         data: res[0],
       };
     } else {
-      return {
-        message: '密码错误',
-      };
+      // 使用自定义异常过滤器
+      throw new MyUnauthorizedException();
     }
   }
 }
