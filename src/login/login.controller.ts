@@ -1,4 +1,4 @@
-import { Body, Controller, Get } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import LoginService from './login.service';
 
 import handlePassword from 'src/commen/utils/handle-password';
@@ -6,10 +6,12 @@ import handlePassword from 'src/commen/utils/handle-password';
 @Controller('login')
 class LoginController {
   constructor(private readonly loginService: LoginService) {}
-  @Get()
+  @Post()
   async login(@Body() data) {
     // eslint-disable-next-line prefer-const
     let { name, password } = data;
+    console.log(name, password);
+
     password = handlePassword.encryption(password);
 
     const res = await this.loginService.login(name, password);

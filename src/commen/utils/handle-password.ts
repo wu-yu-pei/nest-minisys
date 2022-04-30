@@ -3,6 +3,7 @@ import md5 = require('md5');
 
 class HandlePassword {
   encryption(date) {
+    if (!date) return;
     return md5(date);
   }
 }
